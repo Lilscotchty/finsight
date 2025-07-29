@@ -19,11 +19,11 @@ const iconMap: Record<string, React.ElementType> = {
   AlertTriangle,
   ServerCog,
   Sparkles,
-  FileText, 
+  FileText,
 };
 
-const NotificationIcon = ({ type, iconName }: { type: NotificationType, iconName?: string }) => {
-  let SpecificIcon = Bell; 
+const NotificationIcon = ({ type, iconName }: { type: NotificationType; iconName?: string }) => {
+  let SpecificIcon: React.ElementType = Bell;
 
   if (iconName && iconMap[iconName]) {
     SpecificIcon = iconMap[iconName];
@@ -38,19 +38,19 @@ const NotificationIcon = ({ type, iconName }: { type: NotificationType, iconName
       case 'system_update':
         SpecificIcon = ServerCog;
         break;
-      case 'info': 
+      case 'info':
         SpecificIcon = Info;
         break;
       default:
-        SpecificIcon = Bell; 
+        SpecificIcon = Bell;
     }
   }
-  
-  const iconColorClass = 
+
+  const iconColorClass =
     type === 'alert_trigger' ? 'text-accent' :
     type === 'system_update' ? 'text-orange-500' :
     type === 'site_message' ? 'text-blue-500' :
-    type === 'info' ? 'text-sky-500' : 
+    type === 'info' ? 'text-sky-500' :
     'text-muted-foreground';
 
   return <SpecificIcon className={cn("h-5 w-5 mr-3 flex-shrink-0", iconColorClass)} />;
@@ -79,7 +79,7 @@ export default function NotificationsPage() {
         </p>
       </header>
       
-      <Card className="shadow-lg">
+      <Card>
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <CardTitle className="font-headline text-xl">Your Notifications</CardTitle>
@@ -115,10 +115,10 @@ export default function NotificationsPage() {
                     key={notification.id}
                     id={notification.id} 
                     className={cn(
-                      "p-4 rounded-lg border flex items-start space-x-3 transition-colors duration-150",
+                      "p-4 rounded-lg flex items-start space-x-3 transition-colors duration-150",
                       notification.read 
                         ? "bg-card hover:bg-muted/40" 
-                        : "bg-primary/5 hover:bg-primary/10 border-primary/20 shadow-sm"
+                        : "bg-primary/5 hover:bg-primary/10 "
                     )}
                   >
                     <NotificationIcon type={notification.type} iconName={notification.iconName} />
